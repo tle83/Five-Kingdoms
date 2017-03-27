@@ -1,2 +1,2 @@
 # Five-Kingdoms
-A 2D RPG style games made using Unity
+A 2D RPG style game made using Unity
