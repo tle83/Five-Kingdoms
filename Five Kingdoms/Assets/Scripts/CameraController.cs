@@ -8,8 +8,9 @@ public class CameraController : MonoBehaviour {
 	private Vector3 targetPos;
 	public float moveSpeed;
 
+
 	void Start () {
-		
+
 	}
 
 	void Update () {
