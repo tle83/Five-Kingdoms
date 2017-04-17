@@ -45,7 +45,7 @@ public class PlayerHealth : MonoBehaviour {
 		damaged = true;
 		//currentHP -= amount;
 		if (damaged == true) {
-			 currentHP -= 10;
+			currentHP -= attackDamage;
 		}
 		hpSlider.value = currentHP;
 		Debug.Log (currentHP);
