@@ -6,9 +6,10 @@ using UnityEngine.UI;
 public class PlayerHealth : MonoBehaviour {
 
 	public float currentHP;
-	public Slider hpSlider;
+	private Slider hpSlider;
+	public GameObject hpFill;
 	public Image DMG;
-	public float flashSpeed = 5f;
+	public float flashSpeed;
 	public Color flashColor = new Color(1f, 0f, 0f, 1.0f);
 
 	PlayerController playerMovement;
@@ -21,15 +22,14 @@ public class PlayerHealth : MonoBehaviour {
 	private float attackDamage;
 
 	void Start () {
-		playerMovement = GetComponent<PlayerController> ();
-
 		player = GameObject.FindGameObjectWithTag ("Player");
+		playerMovement = player.GetComponent<PlayerController> ();
+
 		enemy = GameObject.FindGameObjectWithTag ("Enemy");
 		enemyMob = enemy.GetComponent<EnemyBasic> ();
 		attackDamage = enemyMob.attackDamage;
 
 		hpSlider = GameObject.Find ("HPslider").GetComponent<Slider>();
-
 		currentHP = hpSlider.value;
 	}
 
@@ -51,6 +51,7 @@ public class PlayerHealth : MonoBehaviour {
 		Debug.Log (currentHP);
 		if (currentHP <= 0 && !isDead) {
 			Death ();
+			hpFill.SetActive (false);
 			Debug.Log ("DIED");
 		}
 	}
@@ -58,6 +59,8 @@ public class PlayerHealth : MonoBehaviour {
 	void Death(){
 		isDead = true;
 		playerMovement.enabled = false;
+		playerMovement.rigidBody.velocity = new Vector2 (0f, 0f);
+		playerMovement.playerMoving = false;
 	}
 
 	void OnTriggerEnter2D(Collider2D other){
