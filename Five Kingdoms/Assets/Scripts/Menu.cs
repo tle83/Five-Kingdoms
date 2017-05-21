@@ -8,7 +8,7 @@ public class Menu : MonoBehaviour {
 	private bool isShowing;
 
 	void Start () {
-		
+
 	}
 
 	void Update () {

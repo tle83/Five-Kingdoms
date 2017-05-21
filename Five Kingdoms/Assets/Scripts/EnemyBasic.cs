@@ -7,7 +7,6 @@ public class EnemyBasic: MonoBehaviour {
 
 	public Transform target;
 	PlayerHealth playerHP;
-	EnemyHealth enemyHP;
 
 	private GameObject enemy;
 	private Rigidbody2D enemyRB;
@@ -16,8 +15,8 @@ public class EnemyBasic: MonoBehaviour {
 
 	public float speed;
 	public float attackRange;
-	public static int attackDamage;
-	public float attackCycle = 0.5f;
+	private float playerRange;
+	public float attackDamage;
 	private bool inRange;
 
 	private bool isMoving;
@@ -39,9 +38,8 @@ public class EnemyBasic: MonoBehaviour {
 		isMoving = false;
 		inRange = false;
 		//the distance between the player and an enemy
-		attackRange = Vector2.Distance (enemy.transform.position, player.transform.position);
-		//Debug.Log (attackRange);
-		if (attackRange <= 2.0f) {
+		playerRange = Vector2.Distance (enemy.transform.position, player.transform.position);
+		if (playerRange <= attackRange) {
 			isMoving = true;
 			inRange = true;
 		}

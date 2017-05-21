@@ -16,22 +16,23 @@ public class PlayerHealth : MonoBehaviour {
 	bool damaged;
 	private GameObject player;
 	private GameObject enemy;
-	private int attackDamage;
 
-	// Use this for initialization
+	EnemyBasic enemyMob;
+	private float attackDamage;
+
 	void Start () {
 		playerMovement = GetComponent<PlayerController> ();
-		attackDamage = EnemyBasic.attackDamage;
 
 		player = GameObject.FindGameObjectWithTag ("Player");
 		enemy = GameObject.FindGameObjectWithTag ("Enemy");
+		enemyMob = enemy.GetComponent<EnemyBasic> ();
+		attackDamage = enemyMob.attackDamage;
 
 		hpSlider = GameObject.Find ("HPslider").GetComponent<Slider>();
 
 		currentHP = hpSlider.value;
 	}
-	
-	// Update is called once per frame
+
 	void Update () 	{
 		if (damaged) {
 			DMG.color = flashColor;
@@ -41,9 +42,8 @@ public class PlayerHealth : MonoBehaviour {
 		damaged = false;
 	}
 
-	public void TakeDamage(int amount){
+	public void TakeDamage(float amount){
 		damaged = true;
-		//currentHP -= amount;
 		if (damaged == true) {
 			currentHP -= attackDamage;
 		}
@@ -63,7 +63,6 @@ public class PlayerHealth : MonoBehaviour {
 	void OnTriggerEnter2D(Collider2D other){
 		if (other.gameObject == enemy) {
 			TakeDamage (attackDamage);
-			Debug.Log ("HIT");
 		}
 	}
 }
