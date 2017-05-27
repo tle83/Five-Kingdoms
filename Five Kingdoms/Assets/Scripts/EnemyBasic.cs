@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class EnemyBasic: MonoBehaviour {
+public class EnemyBasic: MonoBehaviour 
+{
 
 	public Transform target;
 	PlayerHealth playerHP;
@@ -24,7 +25,8 @@ public class EnemyBasic: MonoBehaviour {
 
 	private Slider hpSlider;
 
-	void Start () {
+	void Start () 
+	{
 		enemy = GameObject.FindGameObjectWithTag ("Enemy");
 		player = GameObject.FindGameObjectWithTag ("Player");
 
@@ -34,7 +36,8 @@ public class EnemyBasic: MonoBehaviour {
 	}
 
 
-	void Update () {
+	void Update () 
+	{
 		isMoving = false;
 		inRange = false;
 		//the distance between the player and an enemy

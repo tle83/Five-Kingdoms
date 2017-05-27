@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerController : MonoBehaviour {
+public class PlayerController : MonoBehaviour 
+{
 
 	public float moveSpeed;
 	private Animator anim;
@@ -11,13 +12,15 @@ public class PlayerController : MonoBehaviour {
 	public bool playerMoving;
 	private Vector2 lastMove;
 
-	void Start () {
+	void Start () 
+	{
 		anim = GetComponent<Animator> ();
 		rigidBody = GetComponent<Rigidbody2D> ();
 	}
 	
 
-	void Update () {
+	void Update () 
+	{
 		playerMoving = false;
 		if (Input.GetAxisRaw ("Horizontal") > 0.5f || Input.GetAxisRaw ("Horizontal") < -0.5f) 
 		{

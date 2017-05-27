@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class PlayerHealth : MonoBehaviour {
+public class PlayerHealth : MonoBehaviour 
+{
 
 	public float currentHP;
 	private Slider hpSlider;
@@ -21,9 +22,13 @@ public class PlayerHealth : MonoBehaviour {
 	EnemyBasic enemyMob;
 	private float attackDamage;
 
-	void Start () {
+	Animator anim;
+
+	void Start () 
+	{
 		player = GameObject.FindGameObjectWithTag ("Player");
 		playerMovement = player.GetComponent<PlayerController> ();
+		anim = player.GetComponent<Animator> ();
 
 		enemy = GameObject.FindGameObjectWithTag ("Enemy");
 		enemyMob = enemy.GetComponent<EnemyBasic> ();
@@ -33,38 +38,51 @@ public class PlayerHealth : MonoBehaviour {
 		currentHP = hpSlider.value;
 	}
 
-	void Update () 	{
-		if (damaged) {
+	void Update () 	
+	{
+		if (damaged) 
+		{
 			DMG.color = flashColor;
-		} else {
+		} else 
+		{
 			DMG.color = Color.Lerp (DMG.color, Color.clear, flashSpeed * Time.deltaTime);
 		}
 		damaged = false;
 	}
 
-	public void TakeDamage(float amount){
+	public void TakeDamage(float amount)
+	{
 		damaged = true;
-		if (damaged == true) {
+		if (damaged == true) 
+		{
 			currentHP -= attackDamage;
 		}
 		hpSlider.value = currentHP;
 		Debug.Log (currentHP);
-		if (currentHP <= 0 && !isDead) {
+		if (currentHP <= 0 && !isDead) 
+		{
 			Death ();
 			hpFill.SetActive (false);
 			Debug.Log ("DIED");
 		}
 	}
 
-	void Death(){
+	void Death()
+	{
 		isDead = true;
+		anim.enabled = false;
 		playerMovement.enabled = false;
 		playerMovement.rigidBody.velocity = new Vector2 (0f, 0f);
 		playerMovement.playerMoving = false;
+
+		//Temporary
+		player.GetComponent<SpriteRenderer> ().color = Color.red;
 	}
 
-	void OnTriggerEnter2D(Collider2D other){
-		if (other.gameObject == enemy) {
+	void OnTriggerEnter2D(Collider2D other)
+	{
+		if (other.gameObject == enemy) 
+		{
 			TakeDamage (attackDamage);
 		}
 	}
