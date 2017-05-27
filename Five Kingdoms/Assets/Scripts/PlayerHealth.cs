@@ -9,7 +9,6 @@ public class PlayerHealth : MonoBehaviour
 	public float currentHP;
 	private Slider hpSlider;
 	public GameObject hpFill;
-	public Image DMG;
 	public float flashSpeed;
 	public Color flashColor = new Color(1f, 0f, 0f, 1.0f);
 
@@ -40,13 +39,6 @@ public class PlayerHealth : MonoBehaviour
 
 	void Update () 	
 	{
-		if (damaged) 
-		{
-			DMG.color = flashColor;
-		} else 
-		{
-			DMG.color = Color.Lerp (DMG.color, Color.clear, flashSpeed * Time.deltaTime);
-		}
 		damaged = false;
 	}
 

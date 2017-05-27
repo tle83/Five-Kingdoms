@@ -1,2 +1,5 @@
-Shadow color - ff3b3542 at 130 opacity
-Icon Color   - ff2c9788
+FIVE KINGDOM'S COLOR
+
+grass = rgb(118, 178, 72)
+Shadow color = ff3b3542 at 130 opacity
+Icon Color   = ff2c9788
