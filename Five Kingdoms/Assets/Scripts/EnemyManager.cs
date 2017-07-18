@@ -6,7 +6,9 @@ public class EnemyManager : MonoBehaviour
 {
 	public PlayerHealth playerHP;
 	public GameObject enemy;
-	public float spawnRate = 3f;
+	public float spawnRate;
+	public float spawnLimit;
+	public float currentSpawns = 0.0f;
 	public Transform[] spawnPoints;
 
 	void Start () {
@@ -16,10 +18,14 @@ public class EnemyManager : MonoBehaviour
 
 	void Spawn(){
 		//test if the player has any health
-		if (playerHP.currentHP <= 0.0f) {
+		//also text if the current amount of spawns on the map is under the spawn limit
+		if (playerHP.currentHP <= 0.0f || currentSpawns >= spawnLimit) {
 			//stop the function 
 			return;
 		}
+
+		//increment current spawn count to match the ones on the map
+		currentSpawns++;
 
 		//find a random index
 		int spawnPointIndex = Random.Range(0, spawnPoints.Length);
