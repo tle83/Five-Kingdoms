@@ -30,8 +30,8 @@ public class PlayerHealth : MonoBehaviour
 		anim = player.GetComponent<Animator> ();
 
 		enemy = GameObject.FindGameObjectWithTag ("Enemy");
-		enemyMob = enemy.GetComponent<EnemyBasic> ();
-		attackDamage = enemyMob.attackDamage;
+		//enemyMob = enemy.GetComponent<EnemyBasic> ();
+		//attackDamage = enemyMob.attackDamage;
 
 		hpSlider = GameObject.Find ("HPslider").GetComponent<Slider>();
 		currentHP = hpSlider.value;
