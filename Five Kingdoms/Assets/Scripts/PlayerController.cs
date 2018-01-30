@@ -2,52 +2,50 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerController : MonoBehaviour 
-{
+public class PlayerController : MonoBehaviour {
 
-	public float moveSpeed;
-	private Animator anim;
-	public Rigidbody2D rigidBody;
+	public float playerRange;
+	public float attackRange;
+	public float playerDMG;
 
-	public bool playerMoving;
-	private Vector2 lastMove;
+	private GameObject enemy;
+	EnemyBasic enemyMob;
+	private float enemyHP;
+	public float enemyCurHP;
+
+	private GameObject player;
 
 	void Start () 
-	{
-		anim = GetComponent<Animator> ();
-		rigidBody = GetComponent<Rigidbody2D> ();
+	{	
+		enemy = GameObject.FindGameObjectWithTag ("Enemy");
+		enemyMob = enemy.GetComponent<EnemyBasic> ();
+		enemyHP = enemyMob.enemyHP;
+		enemyCurHP = enemyHP;
+
+		player = GameObject.FindGameObjectWithTag ("Player");
+
 	}
 	
 
 	void Update () 
 	{
-		playerMoving = false;
-		if (Input.GetAxisRaw ("Horizontal") > 0.5f || Input.GetAxisRaw ("Horizontal") < -0.5f) 
-		{
-			playerMoving = true;
-			rigidBody.velocity = new Vector2 (Input.GetAxisRaw ("Horizontal") * moveSpeed * Time.deltaTime, rigidBody.velocity.y);
-			lastMove = new Vector2 (Input.GetAxisRaw ("Horizontal"), 0f);
+		if (enemy != null) {
+			playerRange = Vector2.Distance (enemy.transform.position, player.transform.position);
 		}
-		if (Input.GetAxisRaw ("Vertical") > 0.5f || Input.GetAxisRaw ("Vertical") < -0.5f) 
-		{
-			playerMoving = true;
-			rigidBody.velocity = new Vector2 (rigidBody.velocity.x, Input.GetAxisRaw ("Vertical") * moveSpeed * Time.deltaTime);
-			lastMove = new Vector2 (0f, Input.GetAxisRaw ("Vertical"));
-		}
-		if (Input.GetAxisRaw ("Horizontal") < 0.5f && Input.GetAxisRaw ("Horizontal") > -0.5f) 
-		{
-			rigidBody.velocity = new Vector2 (0f, rigidBody.velocity.y);
-		}
-		if (Input.GetAxisRaw ("Vertical") < 0.5f && Input.GetAxisRaw ("Vertical") > -0.5f) 
-		{
-			rigidBody.velocity = new Vector2 (rigidBody.velocity.x, 0f);
-		}
+		isAttacking ();
+	}
 
-		anim.SetFloat ("MoveX", Input.GetAxisRaw ("Horizontal"));
-		anim.SetFloat ("MoveY", Input.GetAxisRaw ("Vertical"));
-		anim.SetBool ("PlayerMoving", playerMoving);
-		anim.SetFloat ("LastMoveX", lastMove.x);
-		anim.SetFloat ("LastMoveY", lastMove.y);
-		
+	void isAttacking()
+	{
+		//instance of left mouse button is clicked
+		if (Input.GetMouseButtonDown (0) ) 
+		{
+			enemyCurHP -= playerDMG; 
+		}
+		//if enemy is still alive, update its HP
+		if (enemyCurHP > 0) 
+		{
+			enemyHP = enemyCurHP;
+		}
 	}
 }

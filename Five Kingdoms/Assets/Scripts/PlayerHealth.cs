@@ -12,7 +12,7 @@ public class PlayerHealth : MonoBehaviour
 	public float flashSpeed;
 	public Color flashColor = new Color(1f, 0f, 0f, 1.0f);
 
-	PlayerController playerMovement;
+	PlayerMovement playerMovement;
 	bool isDead;
 	bool damaged;
 	private GameObject player;
@@ -26,12 +26,13 @@ public class PlayerHealth : MonoBehaviour
 	void Start () 
 	{
 		player = GameObject.FindGameObjectWithTag ("Player");
-		playerMovement = player.GetComponent<PlayerController> ();
+		playerMovement = player.GetComponent<PlayerMovement> ();
+
 		anim = player.GetComponent<Animator> ();
 
 		enemy = GameObject.FindGameObjectWithTag ("Enemy");
-		//enemyMob = enemy.GetComponent<EnemyBasic> ();
-		//attackDamage = enemyMob.attackDamage;
+		enemyMob = enemy.GetComponent<EnemyBasic> ();
+		attackDamage = enemyMob.attackDamage;
 
 		hpSlider = GameObject.Find ("HPslider").GetComponent<Slider>();
 		currentHP = hpSlider.value;
@@ -70,9 +71,10 @@ public class PlayerHealth : MonoBehaviour
 		//Temporary
 		player.GetComponent<SpriteRenderer> ().color = Color.red;
 	}
-
+		
 	void OnTriggerEnter2D(Collider2D other)
 	{
+		//player collides with an entity with the tag "Enemy"
 		if (other.gameObject == enemy) 
 		{
 			TakeDamage (attackDamage);
